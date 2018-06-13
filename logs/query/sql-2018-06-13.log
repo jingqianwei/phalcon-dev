@@ -1,0 +1,12 @@
+[2018-06-13 13:35:57] [INFO]: array (
+  'sql' => 'SELECT IF(COUNT(*) > 0, 1, 0) FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_NAME`= \'customer\' AND `TABLE_SCHEMA` = \'test\'',
+  'time' => '执行花费时间为：0.00044393539428711s',
+)
+[2018-06-13 13:35:57] [INFO]: array (
+  'sql' => 'DESCRIBE `test`.`customer`',
+  'time' => '执行花费时间为：0.041114091873169s',
+)
+[2018-06-13 13:35:57] [INFO]: array (
+  'sql' => 'SELECT `customer`.`id`, `customer`.`username`, `customer`.`password` FROM `test`.`customer`',
+  'time' => '执行花费时间为：0.00028705596923828s',
+)
