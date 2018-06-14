@@ -337,4 +337,22 @@ class Tools
             return false;
         }
     }
+
+    /**
+     * 来检测变量是否为空
+     * @param $param
+     * @return bool
+     */
+    public static function isValidator($param)
+    {
+        if (is_numeric($param) and $param === 0) {
+            return true;
+        }
+
+        if (!empty($param)) {
+            return true;
+        }
+
+        return false;
+    }
 }
