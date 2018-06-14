@@ -11,6 +11,15 @@ $router->add(
     )
 );
 
+//定义命名路由
+$router->add(
+    "/mongodb/find",//路由名称
+    array(
+        "controller" => "mongodb", //控制器
+        "action"     => "find", //动作
+    )
+);
+
 //通配符定义的路由
 $router->add(
     '/:module/:controller/:action/:params',
