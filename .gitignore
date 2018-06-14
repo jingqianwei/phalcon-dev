@@ -1,3 +1,5 @@
 /logs
 /cache
 /public
+/.idea
+/.phalcon
