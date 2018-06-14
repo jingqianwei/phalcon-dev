@@ -318,9 +318,7 @@ class Tools
     public static function writeLog($log)
     {
         $dir = __DIR__ . "/../Log/";
-        if (!is_dir($dir)) {
-            mkdir($dir);
-        }
+        self::mkDirs($dir);
         $filename = $dir . date("Y-m-d") . ".log";
         file_put_contents($filename, date("Y-m-d H:i:s") . "\t" . $log . PHP_EOL, FILE_APPEND);
     }
