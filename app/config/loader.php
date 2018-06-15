@@ -3,7 +3,7 @@
 $loader = new \Phalcon\Loader();
 
 /**
- * 注册文件
+ * 注册全局文件
  */
 $loader->registerFiles(
     [
@@ -13,6 +13,7 @@ $loader->registerFiles(
 
 /**
  * We're a registering a set of directories taken from the configuration file
+ * 自定加载类，要是php文件得单独加载
  */
 $loader->registerDirs(
     [
