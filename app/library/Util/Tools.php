@@ -234,7 +234,7 @@ class Tools
      * @return mixed
      * @throws \Exception
      */
-    public static function httpsPost($url, $param = array())
+    public static function httpPostArray($url, $param = array())
     {
         $ch = curl_init(); // 初始化一个 cURL 对象
         curl_setopt($ch, CURLOPT_URL, $url); // 设置需要抓取的URL
@@ -258,12 +258,13 @@ class Tools
 
     /**
      * 接收xml数据并转化成数组
+     * @param string $fileName xml文件名
      * @return array
      */
-    public static function getRequestBean()
+    public static function getRequestBean($fileName)
     {
         //simplexml_load_string() 函数把 XML 字符串载入对象中。如果失败，则返回 false。
-        $bean = simplexml_load_string(file_get_contents('php://input'));
+        $bean = simplexml_load_string(file_get_contents($fileName));
         $request = array();
         foreach ($bean as $key => $value) {
             $request [( string )$key] = ( string )$value;
@@ -273,11 +274,12 @@ class Tools
 
     /**
      * 接收json数据并转化成数组
+     * @param string $fileName json文件名
      * @return mixed
      */
-    public static function getJsonData()
+    public static function getJsonData($fileName)
     {
-        $bean = file_get_contents('php://input');
+        $bean = file_get_contents($fileName);
         $result = json_decode($bean, true);
         return $result;
     }
@@ -314,6 +316,7 @@ class Tools
     /**
      * 日志方法
      * @param $log
+     * @return bool
      */
     public static function writeLog($log)
     {
@@ -321,6 +324,8 @@ class Tools
         self::mkDirs($dir);
         $filename = $dir . date("Y-m-d") . ".log";
         file_put_contents($filename, date("Y-m-d H:i:s") . "\t" . $log . PHP_EOL, FILE_APPEND);
+
+        return true;
     }
 
     /**

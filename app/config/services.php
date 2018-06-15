@@ -11,7 +11,6 @@ use Phalcon\Mvc\Url as UrlResolver;
 use Phalcon\Flash\Direct as Flash;
 use Predis\Client as RedisClient;
 use Phalcon\Mvc\View;
-use Util\Tools;
 
 /**
  * Shared configuration service
@@ -89,8 +88,8 @@ $di->setShared('db', function () {
             $sql = $profile->getSQLStatement();
             $executeTime = $profile->getTotalElapsedSeconds();
             $logDir = BASE_PATH . '/logs/query'; //日志目录
-            Tools::mkDirs($logDir);
-            $logger = Tools::initLogData($logDir . '/sql-' . date('Y-m-d') . '.log');
+            mk_dirs($logDir);
+            $logger = init_log_data($logDir . '/sql-' . date('Y-m-d') . '.log');
             $logger->begin(); //开启日志事务
             //记录日志
             $logger->info(

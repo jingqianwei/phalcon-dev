@@ -1,6 +1,5 @@
 <?php
 
-use Util\Tools;
 use Phalcon\Di;
 
 class WxMiniAppController extends \Phalcon\Mvc\Controller
@@ -19,8 +18,8 @@ class WxMiniAppController extends \Phalcon\Mvc\Controller
         $this->redis = $di->get('redis');
         date_default_timezone_set('PRC');//设置时区
         $logDir = BASE_PATH . '/logs/function';
-        Tools::mkDirs($logDir);
-        $this->logger = Tools::initLogData($logDir . '/phalcon-' . date('Y-m-d') . '.log');
+        mk_dirs($logDir);
+        $this->logger = init_log_data($logDir . '/phalcon-' . date('Y-m-d') . '.log');
     }
 
     /**
@@ -39,7 +38,7 @@ class WxMiniAppController extends \Phalcon\Mvc\Controller
         ];
 
         $response = json_decode(
-            Tools::curlRequest(self::URL, 'GET', $params),
+            curl_request(self::URL, 'GET', $params),
             true
         );
 
@@ -63,7 +62,7 @@ class WxMiniAppController extends \Phalcon\Mvc\Controller
         }
 
         //$response 返回的数组，所以要序列化处理才能用set存储
-        $session_id = uniqid(Tools::randomString(10)); //生成随机的session_id
+        $session_id = uniqid(random_string(10)); //生成随机的session_id
         $this->redis->set('session_id:' . $session_id, serialize($response)); //存入redis
     }
 }
