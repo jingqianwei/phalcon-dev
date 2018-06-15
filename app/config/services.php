@@ -72,35 +72,40 @@ $di->setShared('db', function () {
         //throw new \Exception("the database config is error");
     }
 
-    $eventsManager = new EventsManager(); //实例化一个事件
-    $profiler = new DbProfiler(); //分析底层sql性能，并记录日志
-    $eventsManager->attach('db', function ($event, $connection) use ($profiler) {
-        if($event->getType() == 'beforeQuery') {
-            //在sql发送到数据库前启动分析
-            $profiler->startProfile($connection->getSQLStatement());
-        }
+    $this->logger = instance_log_object(BASE_PATH . '/logs/query/', 'sql-' . date('Y-m-d') . '.log');
+    try {
+        $eventsManager = new EventsManager(); //实例化一个事件
+        $profiler = new DbProfiler(); //分析底层sql性能，并记录日志
+        $eventsManager->attach('db', function ($event, $connection) use ($profiler) {
+            if ($event->getType() == 'beforeQuery') {
+                //在sql发送到数据库前启动分析
+                $profiler->startProfile($connection->getSQLStatement());
+            }
 
-        if($event->getType() == 'afterQuery') {
-            //在sql执行完毕后停止分析
-            $profiler->stopProfile();
-            //获取分析结果
-            $profile = $profiler->getLastProfile();
-            $sql = $profile->getSQLStatement();
-            $executeTime = $profile->getTotalElapsedSeconds();
-            $logDir = BASE_PATH . '/logs/query'; //日志目录
-            mk_dirs($logDir);
-            $logger = init_log_data($logDir . '/sql-' . date('Y-m-d') . '.log');
-            $logger->begin(); //开启日志事务
-            //记录日志
-            $logger->info(
-                var_export([
-                    'sql' => $sql,
-                    'time' => '执行花费时间为：' . $executeTime . 's',
-                ], true)
-            );
-            $logger->commit(); //保存消息到文件中
-        }
-    });
+            if ($event->getType() == 'afterQuery') {
+                //在sql执行完毕后停止分析
+                $profiler->stopProfile();
+                //获取分析结果
+                $profile = $profiler->getLastProfile();
+                $sql = $profile->getSQLStatement();
+                $executeTime = $profile->getTotalElapsedSeconds();
+                $this->logger->begin(); //开启日志事务
+                //记录日志
+                $this->logger->info(
+                    var_export([
+                        'sql' => $sql,
+                        'time' => '执行花费时间为：' . $executeTime . 's',
+                    ], true)
+                );
+                $this->logger->commit(); //保存消息到文件中
+            }
+        });
+    } catch (Exception $e) {
+        $this->logger->begin(); //开启日志事务
+        $this->logger->error('错误信息为：' . $e->getMessage());
+        $this->logger->commit(); //保存消息到文件中
+        return false;
+    }
 
     $class = 'Phalcon\Db\Adapter\Pdo\\' . $config->database->adapter;
     $params = [

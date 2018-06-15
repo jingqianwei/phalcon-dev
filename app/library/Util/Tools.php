@@ -360,4 +360,16 @@ class Tools
 
         return false;
     }
+
+    /**
+     * 实例化日志对象
+     * @param $logDir
+     * @param $logFileName
+     * @return FileAdapter
+     */
+    public static function instanceLogObject($logDir, $logFileName)
+    {
+        self::mkDirs($logDir); //日志目录
+        return self::initLogData($logDir . $logFileName);
+    }
 }

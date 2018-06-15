@@ -40,23 +40,6 @@ if (! function_exists('random_string')) {
     }
 }
 
-if (! function_exists('init_log_data')) {
-
-    /**
-     * 初始化日志对象,同时设置日志输出格式
-     * $format: 日志信息格式  $dateFormat: 日期格式
-     * 参考网址 https://blog.csdn.net/qzfzz/article/details/39995715
-     * @param $path
-     * @param string $format
-     * @param string $dataFormat
-     * @return \Phalcon\Logger\Adapter\File
-     */
-    function init_log_data($path, $format = "[%date%] [%type%]: %message%", $dataFormat = 'Y-m-d H:i:s')
-    {
-        return Tools::initLogData($path, $format, $dataFormat);
-    }
-}
-
 if (! function_exists('mk_dirs')) {
 
     /**
@@ -229,5 +212,19 @@ if (! function_exists('is_validator')) {
     function is_validator($param)
     {
         return Tools::isValidator($param);
+    }
+}
+
+if (! function_exists('instance_log_object')) {
+
+    /**
+     * 实例化日志对象
+     * @param $logDir
+     * @param $logFileName
+     * @return \Phalcon\Logger\Adapter\File
+     */
+    function instance_log_object($logDir, $logFileName)
+    {
+        return Tools::instanceLogObject($logDir, $logFileName);
     }
 }

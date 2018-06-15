@@ -17,9 +17,7 @@ class WxMiniAppController extends \Phalcon\Mvc\Controller
         $di = di::getDefault();
         $this->redis = $di->get('redis');
         date_default_timezone_set('PRC');//设置时区
-        $logDir = BASE_PATH . '/logs/function';
-        mk_dirs($logDir);
-        $this->logger = init_log_data($logDir . '/phalcon-' . date('Y-m-d') . '.log');
+        $this->logger = instance_log_object(BASE_PATH . '/logs/function/', 'phalcon-' . date('Y-m-d') . '.log');
     }
 
     /**
