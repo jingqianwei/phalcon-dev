@@ -128,12 +128,11 @@ if (! function_exists('get_request_bean')) {
 
     /**
      * 接收xml数据并转化成数组
-     * @param string $fileName xml文件名
      * @return array
      */
-    function get_request_bean($fileName)
+    function get_request_bean()
     {
-        return Tools::getRequestBean($fileName);
+        return Tools::getRequestBean();
     }
 }
 
@@ -141,12 +140,11 @@ if (! function_exists('get_json_data')) {
 
     /**
      * 接收json数据并转化成数组
-     * @param string $fileName json文件名
-     * @return mixed
+     * @return array
      */
-    function get_json_data($fileName)
+    function get_json_data()
     {
-        return Tools::getJsonData($fileName);
+        return Tools::getJsonData();
     }
 }
 

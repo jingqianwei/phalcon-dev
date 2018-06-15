@@ -5,6 +5,9 @@ namespace Util;
 use Phalcon\Logger\Formatter\Line as LineFormatter;
 use Phalcon\Logger\Adapter\File as FileAdapter;
 
+/**
+ * 参考网址 https://www.cnblogs.com/Steven-shi/p/5896903.html
+ */
 class Tools
 {
     /**
@@ -258,13 +261,12 @@ class Tools
 
     /**
      * 接收xml数据并转化成数组
-     * @param string $fileName xml文件名
      * @return array
      */
-    public static function getRequestBean($fileName)
+    public static function getRequestBean()
     {
         //simplexml_load_string() 函数把 XML 字符串载入对象中。如果失败，则返回 false。
-        $bean = simplexml_load_string(file_get_contents($fileName));
+        $bean = simplexml_load_string(file_get_contents('php://input'));
         $request = array();
         foreach ($bean as $key => $value) {
             $request [( string )$key] = ( string )$value;
@@ -274,12 +276,11 @@ class Tools
 
     /**
      * 接收json数据并转化成数组
-     * @param string $fileName json文件名
      * @return mixed
      */
-    public static function getJsonData($fileName)
+    public static function getJsonData()
     {
-        $bean = file_get_contents($fileName);
+        $bean = file_get_contents('php://input');
         $result = json_decode($bean, true);
         return $result;
     }
