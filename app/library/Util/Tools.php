@@ -316,7 +316,7 @@ class Tools
 
     /**
      * 日志方法
-     * @param $log
+     * @param string $log 写人日志的内容
      * @return bool
      */
     public static function writeLog($log)
@@ -372,5 +372,39 @@ class Tools
     {
         self::mkDirs($logDir); //日志目录
         return self::initLogData($logDir . $logFileName);
+    }
+
+    /**
+     * 来检测多维数组中是否包含某个值
+     * @param string $value 要检测的值
+     * @param array $array 一维或多维数组
+     * @param null $key 当$key为null时，$array为多维数组，当$key为检测的键值时，$array为一维数组
+     * @return bool
+     */
+    public static function deepInArray($value, $array, $key)
+    {
+        if (!is_null($key)) {
+            if (in_array($value, $array)) {
+                return true;
+            }
+            return false;
+        }
+
+        foreach($array as $item) {
+            if(!is_array($item)) {
+                if ($item == $value) {
+                    return true;
+                } else {
+                    continue;
+                }
+            }
+
+            if(in_array($value, $item)) {
+                return true;
+            } else if(self::deepInArray($value, $item, $key)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

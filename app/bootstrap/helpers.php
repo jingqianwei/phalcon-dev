@@ -226,3 +226,18 @@ if (! function_exists('instance_log_object')) {
         return Tools::instanceLogObject($logDir, $logFileName);
     }
 }
+
+if (! function_exists('deep_in_array')) {
+
+    /**
+     * 来检测多维数组中是否包含某个值
+     * @param string $value 要检测的值
+     * @param array $array 一维或多维数组
+     * @param null $key 当$key为null时，$array为多维数组，当$key为检测的键值时，$array为一维数组
+     * @return bool
+     */
+    function deep_in_array($value, $array, $key = null)
+    {
+        return Tools::deepInArray($value, $array, $key);
+    }
+}
