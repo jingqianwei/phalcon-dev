@@ -1,4 +1,0 @@
-[2018-06-13 17:35:48] [INFO]: 接口返回的结果为：array (
-  'errcode' => 41008,
-  'errmsg' => 'missing code, hints: [ req_id: EtTtdA0548hb41 ]',
-)
