@@ -416,6 +416,10 @@ class Tools
      */
     public static function objectArray($array)
     {
+        if (empty($array)) {
+            return null;
+        }
+
         if (is_object($array)) {
             $array = (array)$array;
         }
