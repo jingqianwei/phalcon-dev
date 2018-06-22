@@ -241,3 +241,16 @@ if (! function_exists('deep_in_array')) {
         return Tools::deepInArray($value, $array, $key);
     }
 }
+
+if (! function_exists('object_array')) {
+
+    /**
+     * 对象转化为数组
+     * @param $array (值为对象，或者数组里面为对象)
+     * @return array
+     */
+    function object_array($array)
+    {
+        return Tools::objectArray($array);
+    }
+}

@@ -391,7 +391,7 @@ class Tools
         }
 
         foreach($array as $item) {
-            if(!is_array($item)) {
+            if (!is_array($item)) {
                 if ($item == $value) {
                     return true;
                 } else {
@@ -399,12 +399,33 @@ class Tools
                 }
             }
 
-            if(in_array($value, $item)) {
+            if (in_array($value, $item)) {
                 return true;
-            } else if(self::deepInArray($value, $item, $key)) {
+            } elseif (self::deepInArray($value, $item, $key)) {
                 return true;
             }
         }
         return false;
+    }
+
+    /**
+     * 参考网址为：http://www.thinkphp.cn/code/2903.html
+     * 对象转化为数组
+     * @param $array (值为对象，或者数组里面为对象)
+     * @return array
+     */
+    public static function objectArray($array)
+    {
+        if (is_object($array)) {
+            $array = (array)$array;
+        }
+
+        if (is_array($array)) {
+            foreach($array as $key=>$value) {
+                $array[$key] = self::objectArray($value);
+            }
+        }
+
+        return $array;
     }
 }
