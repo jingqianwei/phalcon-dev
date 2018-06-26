@@ -254,3 +254,31 @@ if (! function_exists('object_array')) {
         return Tools::objectArray($array);
     }
 }
+
+if (! function_exists('return_bytes')) {
+
+    /**
+     * 返回字节数 (不确定内存的单位是什么，统一转化为字节单位)
+     * @param string $val
+     * @return int|string
+     */
+    function return_bytes($val = '')
+    {
+        return Tools::returnBytes($val);
+    }
+}
+
+if (! function_exists('get_need_date')) {
+
+    /**
+     * 获取需要的时间
+     * @param string $time
+     * @param string $date
+     * @param bool $flag
+     * @return int|string
+     */
+    function get_need_date($time = '', $date = '', $flag = true)
+    {
+        return Tools::getNeedDate($time, $date, $flag);
+    }
+}

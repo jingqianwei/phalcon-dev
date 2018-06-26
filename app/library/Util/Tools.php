@@ -432,4 +432,45 @@ class Tools
 
         return $array;
     }
+
+    /**
+     * 返回字节数
+     * @param string $val
+     * @return int|string
+     *
+     * 特别说明：$val = 400M时，case 'm' 被命中，其下的 $val *= 1024; 被执行，
+     * 但因为没有 break 语言，所以会继续命中 case 'k'，并执行其下的 $val *= 1024;
+     * 语句，so，总体上相当于执行了 400 * 1024 * 1024
+     */
+    public static function returnBytes($val)
+    {
+        $val = trim($val);
+        $last = strtolower($val{strlen($val)-1});
+        switch ($last) {
+            case 'g':
+                $val *= 1024;
+            case 'm':
+                $val *= 1024;
+            case 'k':
+                $val *= 1024;
+        }
+
+        return $val;
+    }
+
+    /**
+     * @Describe: 获取需要的时间
+     * @param string $time 基准时间 ，例如 2018-06-25 00:00:00
+     * @param string $date 时间条件 +1 day
+     * @param bool $flag 返回天数还是完成时间
+     * @return false|string 返回的时间是基准时间和时间条件之和后返回的时间
+     */
+    public static function getNeedDate($time, $date, $flag)
+    {
+        if ($flag) {
+            return date('Y-m-d', strtotime($time . $date));
+        }
+
+        return date('Y-m-d H:i:s', strtotime($time . $date));
+    }
 }
