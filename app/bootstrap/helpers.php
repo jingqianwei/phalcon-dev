@@ -282,3 +282,17 @@ if (! function_exists('get_need_date')) {
         return Tools::getNeedDate($time, $date, $flag);
     }
 }
+
+if (! function_exists('request_api_timeout')) {
+
+    /**
+     * @Describe: 获取接口请求花费的时间
+     * @param float $start 开始时间
+     * @param string $company 最终得到时间的单位
+     * @return string
+     */
+    function request_api_timeout($start, $company = 'ms')
+    {
+        return Tools::requestApiTimeOut($start, $company);
+    }
+}

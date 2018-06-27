@@ -473,4 +473,28 @@ class Tools
 
         return date('Y-m-d H:i:s', strtotime($time . $date));
     }
+
+    /**
+     * @Describe: 获取接口请求花费的时间
+     * @Author: chinwe.jing
+     * @Data: 2018/6/27 14:40
+     * @param float $start 开始时间
+     * @param string $company 最终得到时间的单位
+     * @return string
+     */
+    public static function requestApiTimeOut($start, $company)
+    {
+        $last = strtolower($company);
+        $time = microtime(true) - $start; //接口请求花费的时间
+        switch ($last) { //时间单位转换
+            case 's':
+                $time /= 1000 * 1000;
+                break;
+            case 'ms':
+                $time /= 1000;
+                break;
+        }
+
+        return $time . $company;
+    }
 }
