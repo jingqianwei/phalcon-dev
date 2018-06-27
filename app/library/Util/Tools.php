@@ -485,11 +485,14 @@ class Tools
         $last = strtolower($company);
         $time = microtime(true) - $start; //接口请求花费的时间
         switch ($last) { //时间单位转换
-            case 's':
+            case 's': //秒
                 $time /= 1000 * 1000;
                 break;
-            case 'ms':
+            case 'ms': //毫秒
                 $time /= 1000;
+                break;
+            case 'ns': //纳秒
+                $time *= 1000;
                 break;
         }
 
