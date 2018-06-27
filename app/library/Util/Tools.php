@@ -467,11 +467,9 @@ class Tools
      */
     public static function getNeedDate($time, $date, $flag)
     {
-        if ($flag) {
-            return date('Y-m-d', strtotime($time . $date));
-        }
+        $format = $flag ? 'Y-m-d' : 'Y-m-d H:i:s';
 
-        return date('Y-m-d H:i:s', strtotime($time . $date));
+        return date($format, strtotime($time . $date));
     }
 
     /**
