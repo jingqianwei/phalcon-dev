@@ -94,7 +94,7 @@ $di->setShared('db', function () {
                 $this->logger->info(
                     var_export([
                         'sql' => $sql,
-                        'time' => '执行花费时间为：' . $executeTime . 's',
+                        'time' => '执行花费时间为：' . sprintf("%.5f", $executeTime) . 's', //保留5位小数
                     ], true)
                 );
                 $this->logger->commit(); //保存消息到文件中
