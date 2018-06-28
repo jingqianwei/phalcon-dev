@@ -333,13 +333,17 @@ class Tools
 
         $type = $type ? $type . '_' : '';
         $date = date('Ymd', strtotime($date));
-        $log_file = BASE_PATH . DIRECTORY_SEPARATOR . 'logs' .DIRECTORY_SEPARATOR . $type . $date . '.log';
-        self::mkDirs(dirname($log_file));
-        $fp = fopen($log_file, "a+");
-        flock($fp, LOCK_EX);
-        fwrite($fp, PHP_EOL . date("Y-m-d H:i:s") . ' [' . self::getClientIp() . '] : ' . $content);
-        flock($fp, LOCK_UN);
-        fclose($fp);
+        $logFile = BASE_PATH . DIRECTORY_SEPARATOR . 'logs' .DIRECTORY_SEPARATOR . $type . $date . '.log';
+        self::mkDirs(dirname($logFile));
+        file_put_contents($logFile, date("Y-m-d H:i:s") . ' [' . self::getClientIp() . '] : ' . $content . PHP_EOL, FILE_APPEND);
+        /**
+            方法二，写入内容到日志文件
+            $fp = fopen($log_file, "a+");
+            flock($fp, LOCK_EX);
+            fwrite($fp, PHP_EOL . date("Y-m-d H:i:s") . ' [' . self::getClientIp() . '] : ' . $content);
+            flock($fp, LOCK_UN);
+            fclose($fp);
+         */
 
         return true;
     }
