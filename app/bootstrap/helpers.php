@@ -177,12 +177,14 @@ if (! function_exists('write_log')) {
 
     /**
      * 日志方法
-     * @param $log
+     * @param string|array $content 日志内容
+     * @param string $type 日志类型
+     * @param string $date 按什么日期命名日志文件
      * @return bool
      */
-    function write_log($log)
+    function write_log($content, $type = 'debug', $date = 'today')
     {
-        return Tools::writeLog($log);
+        return Tools::writeLog($content, $type, $date);
     }
 }
 
@@ -294,5 +296,17 @@ if (! function_exists('request_api_timeout')) {
     function request_api_timeout($start, $company = 'ms')
     {
         return Tools::requestApiTimeOut($start, $company);
+    }
+}
+
+if (! function_exists('get_client_ip')) {
+
+    /**
+     * @Describe: 获取客户端请求ip
+     * @return array|false|string
+     */
+    function get_client_ip()
+    {
+        return Tools::getClientIp();
     }
 }

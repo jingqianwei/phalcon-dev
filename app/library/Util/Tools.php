@@ -316,15 +316,30 @@ class Tools
 
     /**
      * 日志方法
-     * @param string $log 写人日志的内容
+     * @param string|array $content 日志内容
+     * @param string $type 日志类型
+     * @param string $date 按什么日期命名日志文件
      * @return bool
      */
-    public static function writeLog($log)
+    public static function writeLog($content, $type, $date)
     {
-        $dir = __DIR__ . "/../logs/";
-        self::mkDirs($dir);
-        $filename = $dir . date("Y-m-d") . ".log";
-        file_put_contents($filename, date("Y-m-d H:i:s") . "\t" . $log . PHP_EOL, FILE_APPEND);
+        if (is_array($content)) {
+            $content = var_export($content, true);
+        }
+
+        if (strpos($content, "\n")) {
+            $content = str_replace("\n", "\n", $content);
+        }
+
+        $type = $type ? $type . '_' : '';
+        $date = date('Ymd', strtotime($date));
+        $log_file = BASE_PATH . DIRECTORY_SEPARATOR . 'logs' .DIRECTORY_SEPARATOR . $type . $date . '.log';
+        self::mkDirs(dirname($log_file));
+        $fp = fopen($log_file, "a+");
+        flock($fp, LOCK_EX);
+        fwrite($fp, PHP_EOL . date("Y-m-d H:i:s") . ' [' . self::getClientIp() . '] : ' . $content);
+        flock($fp, LOCK_UN);
+        fclose($fp);
 
         return true;
     }
@@ -497,5 +512,33 @@ class Tools
         }
 
         return $time . $company;
+    }
+
+    /**
+     * @Describe: 获取客户端请求ip
+     * @return array|false|string
+     */
+    public static function getClientIp()
+    {
+        $ip = '' ;
+        if( getenv ( 'HTTP_CLIENT_IP' ) && strcasecmp ( getenv ( 'HTTP_CLIENT_IP' ) , '127.0.0.1' ))
+        {
+            $ip = getenv( 'HTTP_CLIENT_IP' ) ;
+        }
+        else if ( getenv( 'HTTP_X_FORWARDED_FOR' ) && strcasecmp( getenv( 'HTTP_X_FORWARDED_FOR' ) , '127.0.0.1') )
+        {
+            $ipArr = explode ( ',' , $_SERVER['HTTP_X_FORWARD_FOR'] ) ;
+            $ip = $ipArr[0] ;
+        }
+        else if ( getenv ( 'REMOTE_ADDR' ) && strcasecmp ( getenv('REMOTE_ADDR') , '127.0.0.1' ) )
+        {
+            $ip = getenv( 'REMOTE_ADDR' ) ;
+        }
+        else if ( isset( $_SERVER['REMOTE_ADDR'] ) && $_SERVER['REMOTE_ADDR'] && strcasecmp( $_SERVER['REMOTE_ADDR'] , '127.0.0.1' ) )
+        {
+            $ip = $_SERVER['REMOTE_ADDR'] ;
+        }
+
+        return  $ip ? $ip : '127.0.0.1' ;
     }
 }
