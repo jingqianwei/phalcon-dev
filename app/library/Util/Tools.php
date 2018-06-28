@@ -490,21 +490,18 @@ class Tools
     /**
      * @Describe: 获取接口请求花费的时间
      * @param float $start 开始时间
-     * @param string $company 最终得到时间的单位
+     * @param string $company 最终得到时间的单位,默认是毫秒
      * @return string
      */
     public static function requestApiTimeOut($start, $company)
     {
         $last = strtolower($company);
-        $time = microtime(true) - $start; //接口请求花费的时间
+        $time = microtime(true) - $start; //接口请求花费的时间,单位是秒(s)
         switch ($last) { //时间单位转换
             case 's': //秒
-                $time /= 1000 * 1000;
+                $time = sprintf("%.5f", $time);//保留5位小数
                 break;
             case 'ms': //毫秒
-                $time /= 1000;
-                break;
-            case 'ns': //纳秒
                 $time *= 1000;
                 break;
         }
