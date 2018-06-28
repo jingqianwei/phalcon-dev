@@ -489,8 +489,6 @@ class Tools
 
     /**
      * @Describe: 获取接口请求花费的时间
-     * @Author: chinwe.jing
-     * @Data: 2018/6/27 14:40
      * @param float $start 开始时间
      * @param string $company 最终得到时间的单位
      * @return string
