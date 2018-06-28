@@ -9,6 +9,8 @@ class TestController extends \Phalcon\Mvc\Controller
      */
     public function indexAction()
     {
+        write_log('测试日志：' . var_export([1,2,3], true), 'info');
+
         return json_encode([1,2,3]);
     }
 

@@ -327,23 +327,19 @@ class Tools
             $content = var_export($content, true);
         }
 
-        if (strpos($content, "\n")) {
-            $content = str_replace("\n", "\n", $content);
-        }
-
-        $type = $type ? $type . '_' : '';
-        $date = date('Ymd', strtotime($date));
+        $type = $type ? $type . '-' : '';
+        $date = date('Y-m-d', strtotime($date));
         $logFile = BASE_PATH . DIRECTORY_SEPARATOR . 'logs' .DIRECTORY_SEPARATOR . $type . $date . '.log';
         self::mkDirs(dirname($logFile));
-        file_put_contents($logFile, date("Y-m-d H:i:s") . ' [' . self::getClientIp() . '] : ' . $content . PHP_EOL, FILE_APPEND);
-        /**
-            方法二，写入内容到日志文件
-            $fp = fopen($log_file, "a+");
-            flock($fp, LOCK_EX);
-            fwrite($fp, PHP_EOL . date("Y-m-d H:i:s") . ' [' . self::getClientIp() . '] : ' . $content);
-            flock($fp, LOCK_UN);
-            fclose($fp);
-         */
+        //方法1，写入内容到日志文件
+        file_put_contents($logFile, '[' . date("Y-m-d H:i:s") . '] [' . self::getClientIp() . ']: ' . $content . PHP_EOL, FILE_APPEND);
+
+        //方法2，写入内容到日志文件,如果是数量级的调用写入内容，用这中方法效率更高
+        /*$fp = fopen($logFile, "a+");
+        flock($fp, LOCK_EX); //锁住文件，以防止其它操作文件的动作
+        fwrite($fp, '[' . date("Y-m-d H:i:s") . '] [' . self::getClientIp() . ']: ' . $content . PHP_EOL);
+        flock($fp, LOCK_UN);
+        fclose($fp);*/
 
         return true;
     }
