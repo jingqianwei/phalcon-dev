@@ -36,7 +36,7 @@ class Cache
         $adve_key = 'adve';
         $adve_key_exists = 'adve_exists';
         if (!$this->redis->exists($adve_key_exists)) {
-            $list = $this->mysql->fetch_array("select * from user_online_adve");
+            $list = $this->mysql->mysql_query("select * from user_online_adve");
             if ($list) {
                 foreach ($list as $key => $value) {
                     $url_hash = md5($value['adve_url']);
@@ -60,7 +60,7 @@ class Cache
                 if ($num >10) {
                     $id = $this->redis->get($adve_new_key);
                     // insert to sql;
-                    $this->mysql->query("update user_online_adve set adve_num=adve_num+$num where id=$id");
+                    $this->mysql->mysql_query("update user_online_adve set adve_num = adve_num + {$num} where id = {$id}");
                     $this->redis->set($adve_plus,1);
                 }
             }
