@@ -1,6 +1,7 @@
 <?php
 
 use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
+//use Phalcon\Db\Adapter\MongoDB\Client as MongoDbClient;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
 use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Mvc\View\Engine\Php as PhpEngine;
@@ -193,7 +194,13 @@ $di->setShared('mongodb', function () {
 
     try {
         $url = 'mongodb://'.$mongodbConfig['host'].':'.$mongodbConfig['port'];
-
+        /**
+         * 第二种用法，参考网址：https://www.codercto.com/a/4396.html
+         * ODM用法参考网址：http://phalcon-php-framework-documentation.readthedocs.io/en/latest/reference/odm.html
+         * http://phalcon.ipanta.com/1.3/odm.html
+         * github源码地址：https://github.com/phalcon/incubator
+         * new MongoDbClient($url);
+         */
         $manager = new MongoManager($url);
 
         return $manager;

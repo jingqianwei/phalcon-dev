@@ -18,10 +18,21 @@ $loader->registerFiles(
 $loader->registerDirs(
     [
         $config->application->controllersDir,
+        $config->application->validationDir,
         $config->application->libraryDir,
         $config->application->modelsDir,
     ]
 );//注册加载的地方，那个目录要加载就要写在里面
+
+/**
+ * 注册命名空间
+ */
+$loader->registerNamespaces(
+    [
+        'SbDaRepository' =>  $config->application->repositoryDir,
+        'SbDaValidation' =>  $config->application->validationDir,
+    ]
+);
 
 // Register autoloader
 $loader->register();
