@@ -6,7 +6,7 @@ use Phalcon\Di as di;
  * 联系phalcon框架的CURD写的demo，参考网址 https://www.cnblogs.com/Kassadin/p/5433865.html
  * Class InsertController
  */
-class InsertController extends \Phalcon\Mvc\Controller
+class InsertController extends ControllerBase
 {
     public $redis;
 

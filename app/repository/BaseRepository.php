@@ -21,7 +21,4 @@ class BaseRepository
         $this->signConfig = $this->config->signature;
         $this->appKey = $this->config->signature->appkey;
     }
-
-
-
 }

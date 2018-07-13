@@ -2,7 +2,7 @@
 
 use Phalcon\Di as di;
 
-class MongodbController extends \Phalcon\Mvc\Controller
+class MongodbController extends ControllerBase
 {
     public $mongodb;
 

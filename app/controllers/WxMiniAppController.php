@@ -2,7 +2,7 @@
 
 use Phalcon\Di;
 
-class WxMiniAppController extends \Phalcon\Mvc\Controller
+class WxMiniAppController extends ControllerBase
 {
     //微信接口url
     const URL = 'https://api.weixin.qq.com/sns/jscode2session';

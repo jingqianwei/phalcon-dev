@@ -1,6 +1,6 @@
 <?php
 
-class TestController extends \Phalcon\Mvc\Controller
+class TestController extends ControllerBase
 {
 
     /**
@@ -9,6 +9,7 @@ class TestController extends \Phalcon\Mvc\Controller
      */
     public function indexAction()
     {
+        $this->renderJson([1,2], 10001); //接口输入
         write_log('测试日志：' . var_export([1,2,3], true), 'info');
 
         return json_encode([1,2,3]);

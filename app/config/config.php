@@ -5,6 +5,7 @@
  */
 defined('BASE_PATH') || define('BASE_PATH', getenv('BASE_PATH') ?: realpath(dirname(__FILE__) . '/../..'));
 defined('APP_PATH') || define('APP_PATH', BASE_PATH . '/app');
+require_once APP_PATH . "/config/error.php";
 
 return new \Phalcon\Config([
     'database' => [
@@ -16,14 +17,16 @@ return new \Phalcon\Config([
         'charset'     => 'utf8',
     ],
     'application' => [
-        'appDir'         => APP_PATH . '/',
-        'controllersDir' => APP_PATH . '/controllers/',
-        'modelsDir'      => APP_PATH . '/models/',
-        'migrationsDir'  => APP_PATH . '/migrations/',
-        'viewsDir'       => APP_PATH . '/views/',
-        'pluginsDir'     => APP_PATH . '/plugins/',
-        'libraryDir'     => APP_PATH . '/library/',
-        'bootstrapDir'   => APP_PATH . '/bootstrap/',
+        'appDir'         => APP_PATH  . '/',
+        'controllersDir' => APP_PATH  . '/controllers/',
+        'modelsDir'      => APP_PATH  . '/models/',
+        'migrationsDir'  => APP_PATH  . '/migrations/',
+        'viewsDir'       => APP_PATH  . '/views/',
+        'pluginsDir'     => APP_PATH  . '/plugins/',
+        'libraryDir'     => APP_PATH  . '/library/',
+        'bootstrapDir'   => APP_PATH  . '/bootstrap/',
+        'repositoryDir'  => APP_PATH  . '/repository/',
+        'validationDir'  => APP_PATH  . '/validation/',
         'cacheDir'       => BASE_PATH . '/cache/',
 
         // This allows the baseUri to be understand project paths that are not in the root directory
@@ -31,6 +34,7 @@ return new \Phalcon\Config([
         // possibly if the web server rewrite rules are changed. This can also be set to a static path.
         'baseUri'        => preg_replace('/public([\/\\\\])index.php$/', '', $_SERVER["PHP_SELF"]),
     ],
+    "errorList" => $errorList, //错误码集合
     'redis' => [
         'host' => '127.0.0.1',
         'prefix' => '',
