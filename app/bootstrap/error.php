@@ -1,6 +1,6 @@
 <?php
 
-$errorList = [
+return [
     0 => '',
     200 => 'ok',
 

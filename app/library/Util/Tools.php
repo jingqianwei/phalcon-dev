@@ -536,4 +536,16 @@ class Tools
 
         return  $ip ? $ip : '127.0.0.1' ;
     }
+
+    /**
+     * @Describe: 获取错误码对用的错误信息
+     * @param int $errCode 错误码
+     * @return array|false|string
+     */
+    public static function getErrorMsg($errCode)
+    {
+        $errorList = require_once APP_PATH . "/bootstrap/error.php";
+
+        return isset($errorList[$errCode]) ? $errorList[$errCode] : '不存在对应的错误码，请手动添加！';
+    }
 }
