@@ -14,9 +14,15 @@ class ControllerBase extends Controller
     {
         $response = [];
 
+        $errorList = $this->config->errorList;
+
+        if (!isset($errorList[$errorCode * 1])) {
+            $errorCode = 0;
+        }
+
         $response['code'] = $errorCode * 1;
 
-        $response['msg'] = get_error_msg($errorCode * 1);
+        $response['msg'] = $errorList[$errorCode * 1];
 
         if (!empty($data)) {
             $response['data'] = $data;

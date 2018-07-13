@@ -310,16 +310,3 @@ if (! function_exists('get_client_ip')) {
         return Tools::getClientIp();
     }
 }
-
-if (! function_exists('get_error_msg')) {
-
-    /**
-     * @Describe: 获取错误码对用的错误信息
-     * @param int $errCode 错误码
-     * @return array|false|string
-     */
-    function get_error_msg($errCode = 200)
-    {
-        return Tools::getErrorMsg($errCode);
-    }
-}

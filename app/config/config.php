@@ -33,6 +33,7 @@ return new \Phalcon\Config([
         // possibly if the web server rewrite rules are changed. This can also be set to a static path.
         'baseUri'        => preg_replace('/public([\/\\\\])index.php$/', '', $_SERVER["PHP_SELF"]),
     ],
+    "errorList" => require_once APP_PATH . "/bootstrap/error.php",//错误码集合
     'redis' => [
         'host' => '127.0.0.1',
         'prefix' => '',
