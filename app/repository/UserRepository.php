@@ -9,7 +9,7 @@
 namespace SbDaRepository;
 
 use Phalcon\JWT\JWT;
-use Utile\Tools;
+use Util\Tools;
 
 class UserRepository extends BaseRepository
 {
