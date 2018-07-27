@@ -11,9 +11,9 @@ class TestController extends ControllerBase
      */
     public function indexAction()
     {
-        //$curl = new Curl('www.baidu.com/','post');
-        //$curl->post('www.baidu.com/','1111');
-        \Phalcon\Arr::get([1111], 0);
+//        $curl = new Curl('www.baidu.com/','post');
+//        $curl->post('www.baidu.com/','1111');
+//        Arr::get([1111], 0);
         $this->renderJson([1,2], 10001); //接口输出
         write_log('测试日志：' . var_export([1,2,3], true), 'info');
 
